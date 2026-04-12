@@ -35,29 +35,28 @@ async def index(request: Request):
 
 @app.get("/resume")
 async def resume(request: Request):
-    return templates.TemplateResponse("resume.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="resume.html")
 
 @app.get("/projects")
 async def projects(request: Request):
     conn = get_db_connection()
     projects = conn.execute('SELECT * FROM projects').fetchall()
     conn.close()
-    return templates.TemplateResponse("projects.html", {"request": request, "projects": projects})
+    return templates.TemplateResponse(request=request, name="projects.html", context={"projects": projects})
 
 @app.get("/projects/{project_id}")
 async def project_detail(request: Request, project_id: int):
     detail = PROJECT_DETAILS.get(project_id)
     if not detail:
         return RedirectResponse(url="/projects")
-    return templates.TemplateResponse("project_detail.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="project_detail.html", context={
         "project_id": project_id,
         "detail": detail
     })
 
 @app.get("/contact")
 async def contact_form(request: Request):
-    return templates.TemplateResponse("contact.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="contact.html")
 
 @app.post("/contact")
 async def submit_contact(request: Request, name: str = Form(...), message: str = Form(...)):
@@ -72,4 +71,4 @@ async def messages(request: Request):
     conn = get_db_connection()
     msgs = conn.execute('SELECT * FROM messages').fetchall()
     conn.close()
-    return templates.TemplateResponse("messages.html", {"request": request, "messages": msgs})
+    return templates.TemplateResponse(request=request, name="messages.html", context={"messages": msgs})
