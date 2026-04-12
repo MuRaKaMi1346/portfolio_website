@@ -2,12 +2,25 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 # ดึงข้อมูลจากไฟล์ที่แยกออกไป
 from project_data import PROJECT_DETAILS
 from database import get_db_connection, init_db
 
 app = FastAPI()
+
+origins = [
+    "https://MuRaKaMi1346.github.io", 
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -18,7 +31,7 @@ init_db()
 
 @app.get("/")
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="index.html")
 
 @app.get("/resume")
 async def resume(request: Request):
