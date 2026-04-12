@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>Inbox</h1>
+<p>Messages received through the contact form.</p>
+
+{% if messages %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in messages %}
+            <tr>
+                <td>{{ "%02d"|format(msg.id) }}</td>
+                <td>{{ msg.name }}</td>
+                <td>{{ msg.message }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="empty-state">No messages yet. <a href="/contact" class="inline-link">Be the first to say hi →</a></p>
+{% endif %}
+
+{% endblock %}

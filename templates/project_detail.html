@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="detail-back">
+    <a href="/projects" class="back-link">← Back to Projects</a>
+</div>
+
+<div class="detail-header">
+    <div class="detail-num">{{ "%02d"|format(project_id) }}</div>
+    <h1>{{ detail.title }}</h1>
+    <p class="detail-summary">{{ detail.summary }}</p>
+    <div class="skill-tags" style="margin-top:16px;">
+        {% for tech in detail.stack %}
+        <span class="tag tag-cyan">{{ tech }}</span>
+        {% endfor %}
+    </div>
+</div>
+
+<h2>Source Code</h2>
+
+<div class="tab-bar" id="tab-bar">
+    {% for file in detail.files %}
+    <button class="tab-btn {% if loop.first %}tab-active{% endif %}"
+            data-tab="file-{{ loop.index }}">
+        <span>{{ file.label }}</span>
+        <span class="tab-filename">{{ file.name }}</span>
+    </button>
+    {% endfor %}
+</div>
+
+{% for file in detail.files %}
+<div class="code-panel {% if loop.first %}code-active{% endif %}" id="file-{{ loop.index }}">
+    <div class="code-header">
+        <span class="code-filename">{{ file.name }}</span>
+        <button class="copy-btn" onclick="copyCode(this)"><span>Copy</span></button>
+    </div>
+    <pre class="code-block"><code>{{ file.code }}</code></pre>
+</div>
+{% endfor %}
+
+<h2>Test Results</h2>
+
+<div class="metrics-row">
+    {% for m in detail.results.metrics %}
+    <div class="metric-card">
+        <span class="metric-label">{{ m.label }}</span>
+        <span class="metric-value">{{ m.value }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="result-block">
+    <div class="result-header">
+        <span>Terminal Output</span>
+        <span class="result-dot"></span>
+    </div>
+    <pre class="result-output">{{ detail.results.output }}</pre>
+</div>
+
+<script>
+// Tab switching
+document.getElementById('tab-bar').addEventListener('click', function(e) {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    const target = btn.dataset.tab;
+
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
+    document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('code-active'));
+    btn.classList.add('tab-active');
+    document.getElementById(target).classList.add('code-active');
+});
+
+// Copy code
+function copyCode(btn) {
+    const code = btn.closest('.code-panel').querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+        btn.querySelector('span').innerText = 'Copied!';
+        setTimeout(() => btn.querySelector('span').innerText = 'Copy', 1800);
+    });
+}
+</script>
+
+{% endblock %}

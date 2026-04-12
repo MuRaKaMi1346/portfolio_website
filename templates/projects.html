@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>Projects</h1>
+<p>AI and machine learning projects built through coursework, research, and freelance work. Click any card to view code and results.</p>
+
+<div class="project-grid">
+    {% for proj in projects %}
+    <a class="project-card project-link" href="/projects/{{ proj.id }}">
+        <div class="project-number">{{ "%02d"|format(loop.index) }}</div>
+        <div class="project-title">{{ proj.title }}</div>
+        <div class="project-desc">{{ proj.description }}</div>
+        <div class="project-cta">View code &amp; results →</div>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

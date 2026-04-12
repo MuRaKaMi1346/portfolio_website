@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passawee Kaewduk — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="stars-container">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+    </div>
+
+    <nav>
+        <a class="nav-logo" href="/">PK</a>
+        <div class="nav-links">
+            <a href="/" id="nav-about">About</a>
+            <a href="/resume" id="nav-resume">Resume</a>
+            <a href="/projects" id="nav-projects">Projects</a>
+            <a href="/contact" id="nav-contact">Contact</a>
+            <a href="/messages" id="nav-messages">Inbox</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="content hidden">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <script src="/static/script.js"></script>
+    <script>
+        // Highlight active nav link
+        const path = window.location.pathname;
+        const map = {'/': 'nav-about', '/resume': 'nav-resume', '/projects': 'nav-projects', '/contact': 'nav-contact', '/messages': 'nav-messages'};
+        const id = map[path];
+        if (id) document.getElementById(id)?.classList.add('active');
+    </script>
+</body>
+</html>
