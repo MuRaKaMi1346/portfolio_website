@@ -645,6 +645,7 @@ form label {
 }
 
 input[type="text"],
+input[type="password"],
 textarea {
   width: 100%;
   padding: 14px 16px;
@@ -660,9 +661,11 @@ textarea {
 }
 
 input[type="text"]::placeholder,
+input[type="password"]::placeholder,
 textarea::placeholder { color: rgba(136, 146, 170, 0.5); }
 
 input[type="text"]:focus,
+input[type="password"]:focus,
 textarea:focus {
   border-color: var(--cyan);
   box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
