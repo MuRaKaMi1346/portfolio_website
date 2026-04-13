@@ -648,6 +648,10 @@ input[type="text"],
 input[type="password"],
 textarea {
   width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   padding: 14px 16px;
   background: rgba(0, 0, 0, 0.4);
   color: var(--white);
@@ -658,6 +662,16 @@ textarea {
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
   resize: vertical;
+}
+
+/* Override browser autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(10, 12, 20, 0.95) inset;
+  -webkit-text-fill-color: var(--white);
+  transition: background-color 5000s ease-in-out 0s;
+  border: 1px solid var(--border);
 }
 
 input[type="text"]::placeholder,
