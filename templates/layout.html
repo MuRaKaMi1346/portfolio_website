@@ -23,7 +23,6 @@
             <a href="/resume" id="nav-resume">Resume</a>
             <a href="/projects" id="nav-projects">Projects</a>
             <a href="/contact" id="nav-contact">Contact</a>
-            <a href="/messages" id="nav-messages">Inbox</a>
         </div>
     </nav>
 
@@ -37,7 +36,7 @@
     <script>
         // Highlight active nav link
         const path = window.location.pathname;
-        const map = {'/': 'nav-about', '/resume': 'nav-resume', '/projects': 'nav-projects', '/contact': 'nav-contact', '/messages': 'nav-messages'};
+        const map = {'/': 'nav-about', '/resume': 'nav-resume', '/projects': 'nav-projects', '/contact': 'nav-contact'};
         const id = map[path];
         if (id) document.getElementById(id)?.classList.add('active');
     </script>

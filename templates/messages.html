@@ -1,8 +1,13 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-<h1>Inbox</h1>
-<p>Messages received through the contact form.</p>
+<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <div>
+        <h1 style="margin-bottom:4px;">Inbox</h1>
+        <p>Messages received through the contact form.</p>
+    </div>
+    <a href="/inbox/logout" class="btn btn-ghost" style="align-self:flex-start;"><span>Logout</span></a>
+</div>
 
 {% if messages %}
 <div class="table-wrap">
